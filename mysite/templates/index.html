@@ -15,6 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<!-- Custom styles for this template -->
 	<link href="css/simple-sidebar.css" rel="stylesheet">
@@ -85,16 +86,17 @@ body {
 }
 
 .form input:not(.action-button) {
-  border: 2px solid #ccc;
-  display: block;
-  margin: 20px auto;
+	width: 240px;
+	border: 2px solid #ccc;
+	display: block;
+	margin-top: 10px;
 }
 
 .action-button {
   margin: 10px auto;
   width: 85px;
   height: 30px;
-  background-color: #27AE60;
+  background-color: #46cc78;
   border: none;
   color: white;
   outline: none;
@@ -115,23 +117,28 @@ body {
 .form fieldset {
 	background: white;
 	border: 0 none;
-	border-radius: 3px;
-	box-shadow: 0 0 3px 3px rgba(196, 193, 193, 0.401);
+	/*box-shadow: 0 0 3px 3px rgba(196, 193, 193, 0.401);*/
 	padding: 20px 30px;
 	box-sizing: border-box;
 	width: 92%;
 	margin: 0 auto;
 	/*stacking fieldsets above each other*/
 	position: relative;
+	border-top: 5px solid rgba(196, 193, 193, 0.401);
+	border-bottom: 5px solid rgba(196, 193, 193, 0.401);
+	border-radius: 2px;
+	
 }
 
 .form fieldset:not(:first-of-type) {
   display: none;
+  
 }
 
 .progressBar {
   counter-reset: step;
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  
 }
 
 .progressBar li {
@@ -257,10 +264,15 @@ body {
 				</ul>
 				<!-- fieldsets -->
 				<fieldset>
-						<h2 class="fs-title">Data Diri</h2>
-						<input type="text" name="email" placeholder="Email" />
-						<input type="password" name="pass" placeholder="Password" />
-						<input type="password" name="cpass" placeholder="Confirm Password" />
+						<h2 class="fs-title">Data Pribadi</h2>
+						<div class="row">
+							<div class="col">
+								<input type="text" name="nama" placeholder="Nama" required/>
+								<input type="date" name="tanggal_lahir" placeholder="Tanggal Lahir" required/>
+								<input type="text" name="alamat" placeholder="Alamat" required/>
+							</div>
+						</div>
+						
 						<input type="button" name="next" class="next action-button" value="Next" />
 				</fieldset>
 				<fieldset>
@@ -290,8 +302,22 @@ body {
 				
 			</div>
 		</div>
+		
+		<input id="umur" type='number' placeholder="umur"></input>
+		<input id="SA" type='number' placeholder="SA"></input>
+		<button onclick="loadDoc()">click</button>
+		
+		<div id="field"></div>
+		
+		<!--<form method="POST" >{% csrf_token %}
+			<input type='text' name='nm' placeholder="nm">
+			<input type='text' name='nm1' placeholder="nm1">
+			<input type="submit" value="submit" placeholder="submit">
+		</form>-->
 
-
+	<button id="click" onclick="loadDoc()">
+		click
+	</button>
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -326,6 +352,21 @@ body {
 			currentFieldset.css({'display': 'none'});
 			prevFieldset.css({'display': 'block'});
 		})
+
+		function loadDoc() {
+			umur = document.getElementById("umur").value;
+			sa  = document.getElementById("SA").value;
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("field").innerHTML = this.responseText;
+				}
+			};
+			xhttp.open("GET", "predicts/"+umur+"/"+sa, true);
+			xhttp.send();
+		}
+		
+
 	</script>
 </body>
 </html>

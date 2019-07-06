@@ -9,6 +9,18 @@ from django.http import HttpResponse
 
 
 def index(request):
+    
+
+    x = 0
+
+
+    return render(request,'index.html')
+
+def detail(request):
+    y = 6 + 6
+    return HttpResponse(y)
+
+def predict_user(request,umur,sa):
     csv = open(os.path.dirname(os.path.realpath(__file__)) + '//dataframe.csv', "r")
     dataset = pd.read_csv(csv)
 
@@ -24,18 +36,11 @@ def index(request):
     neigh = KNeighborsClassifier(n_neighbors=101)
     neigh.fit(Y, X) 
 
-    umur = 1600
-    up = 200000000 #umur
+    umu = umur
+    up = sa
 
-    predict = neigh.predict([[umur,up]])
-    proba = neigh.predict_proba([[umur,up]])
+    predict = neigh.predict([[umu,up]])
+    proba = neigh.predict_proba([[umu,up]])
 
-
-    return render(request,'index.html',{
-        'prediction':predict[0],
-        'proba':proba,
-    })
-
-def detail(request,id):
-    y = 6 + 6
-    return HttpResponse(f"detail {id,y}")
+    return HttpResponse(predict)
+    
