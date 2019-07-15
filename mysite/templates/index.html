@@ -184,14 +184,14 @@ body {
 }
 
 .fs-title {
-  text-transform: uppercase;
-  font-size: 1.3em;
-  font-weight: lighter;
+	text-transform: uppercase;
+	font-size: 1.3em;
+	font-weight: lighter;
 }
 
 .fs-subtitle {
-  font-size: 1.2em;
-  font-weight: lighter;
+	font-size: 1.2em;
+	font-weight: lighter;
 }
 
 .form fieldset {
@@ -347,59 +347,52 @@ body {
 		<div class="container-fluid" id='register' style="margin-top:10px" style="background:#ddd">
 			<div class="form">
 				<ul class='progressBar'>
-					<li class='active'>Data Diri</li>
-					<li>Data Antropometri</li>
+					<li class='active'>Pilih Produk</li>
+					<li>Perhitungan</li>
 					<li>pengajuan UP</li>
 					<li>Hasil</li>
 				</ul>
 				<!-- fieldsets -->
 				<fieldset>
-						<h2 class="fs-title">Data Pribadi</h2>
-						<div class="row">
-							<div class="col">
-								<input type="text" name="nama" placeholder="Nama" required/>
-								<input type="date" name="tanggal_lahir" placeholder="Tanggal Lahir" id="ttl" required/>
-								<input type="text" name="alamat" placeholder="Alamat" required/>
-								<input type="text" name="agama" placeholder="Agama" required/>
-								<input type="text" name="suku" placeholder="Suku" required/>
-								
-								<div style="margin-top: 10px">
-									<div style="display: inline-flex">
-										<label>Laki-Laki</label>
-										<input id="L" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Laki-laki" value="L">
-										<label>Perempuan</label>
-										<input id="P" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Perempuan" value="P">
-									</div>
-								</div>
-	
-							</div>
-							<div class="col">
-
-							</div>
-						</div>
-						<input type="button" name="next" class="next action-button" value="Next" />
-				</fieldset>
-				<fieldset>
-						<h2 class="fs-title">Data Antropometri</h2>
-						<div class="row">
-							<div class="col">
-								<input type="number" id="tinggi_badan" name="tinggi_badan" placeholder="Tinggi Badan (cm)" required/>
-								<input type="number" id="berat_badan" name="berat_badan" placeholder="Berat Badan (cm)" required/>
-								<div id="result-bmi" style="margin-top: 10px">
-									<div id="bmi-result" class="" role="alert" style="padding: 3px">
-										Success BMI result
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								
-							</div>
-						</div>
-						<input type="button" name="previous" class="previous action-button" value="Previous" />
+						<h2 class="fs-title">Pilih Product</h2>
+						<select name="carlist" form="carform">
+							<option value="product1">Product 1</option>
+							<option value="product2">Product 2</option>
+							<option value="product3">Product 3</option>
+							<option value="product4">Product 4</option>
+						</select><br>
+							  
 						<input type="button" name="next" class="next action-button disable " value="Next" />
 				</fieldset>
 				<fieldset>
-					<h2 class="fs-title">pengajuan UP</h2>
+						<h2 class="fs-title">Perhitungan</h2>
+						<div class="row">
+							<div class="col">
+								
+								Tanggal Lahir<br>
+								<input type="date" style="width: 140px" name="tanggal_lahir" placeholder="Tanggal Lahir" id="ttl" required/><br>
+								Tanggal Mulai Kredit<br>
+								<input type="date" style="width: 140px" name="tanggal_kredit" placeholder="Tanggal Lahir" id="t_kredit" required/><br>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<div class="btn btn-secondary">0</div>
+									<div class="btn btn-secondary">Umur</div>
+								</div>
+							</div>
+							<div class="col">
+								Masa Asuransi <br>
+									<div class="input-group">
+											<input type="number" style="max-width: 130px" class="form-control"  aria-label="Input group example" aria-describedby="btnGroupAddon">
+										<div class="input-group-prepend">
+											<div class="input-group-text" id="btnGroupAddon" style="margin-top: 10px;height: 33px">Bulan</div>
+										</div>
+										
+									</div>
+										
+							</div>
+						</div>
+				</fieldset>
+				<fieldset>
+					<h2 class="fs-title">Perhitungan</h2>
 					<div class="row">
 						<input type="text" name="SA" id="up" placeholder="Uang Pertanggungan" /><button id="check" class=" check" style="margin-top: 10px">Check</button>
 					</div>
@@ -440,12 +433,30 @@ body {
 					<input type="button" name="next" class="next action-button" value="Next" />
 			</fieldset>
 				<fieldset>
-					<h2 class="fs-title">Hasil</h2>
-					<input type="text" name="fname" placeholder="First Name" />
-					<input type="text" name="lname" placeholder="Last Name" />
-					<input type="text" name="phone" placeholder="Phone" />
-					<input type="button" name="previous" class="previous action-button" value="Previous" />
-					<input type="submit" name="submit" class="submit action-button" value="Submit" />
+					<h2 class="fs-title">Data Pribadi</h2>
+						<div class="row">
+							<div class="col">
+								<input type="text" name="nama" placeholder="Nama" required/>
+								<input type="date" name="tanggal_lahir" placeholder="Tanggal Lahir" id="ttl" required/>
+								<input type="text" name="alamat" placeholder="Alamat" required/>
+								<input type="text" name="agama" placeholder="Agama" required/>
+								<input type="text" name="suku" placeholder="Suku" required/>
+								
+								<div style="margin-top: 10px">
+									<div style="display: inline-flex">
+										<label>Laki-Laki</label>
+										<input id="L" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Laki-laki" value="L">
+										<label>Perempuan</label>
+										<input id="P" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Perempuan" value="P">
+									</div>
+								</div>
+	
+							</div>
+							<div class="col">
+
+							</div>
+						</div>
+						<input type="button" name="next" class="next action-button" value="Next" />
 				</fieldset>
 				
 			</div>
@@ -455,6 +466,31 @@ body {
 		<input id="umur" type='number' placeholder="umur"></input>
 		<input id="SA" type='number' placeholder="SA"></input>
 		<button onclick="loadDoc()">click</button>
+
+			Antropometri
+
+			<h2 class="fs-title">Perhitungan</h2>
+						<div class="row">
+							<div class="col">
+								<input type="number" id="tinggi_badan" name="tinggi_badan" placeholder="Tinggi Badan (cm)" required/>
+								<input type="number" id="berat_badan" name="berat_badan" placeholder="Berat Badan (cm)" required/>
+								<div id="result-bmi" style="margin-top: 10px">
+									<div id="bmi-result" class="" role="alert" style="padding: 3px">
+										Success BMI result
+									</div>
+								</div>
+							</div>
+							<div class="col">
+								
+							</div>
+						</div>
+						<input type="button" name="previous" class="previous action-button" value="Previous" />
+						<input type="button" name="next" class="next action-button disable " value="Next" />
+
+
+
+
+
 		-->
 		
 		
