@@ -23,7 +23,7 @@
 	<script>
 		var umur = 0;
 		$(document).ready(function(){
-			$("#free-cover").hide();
+			//$("#free-cover").hide();
 			var thisbmi = 0;
 			var umr = 0;
 			$("#table-kuisioner").hide();
@@ -312,6 +312,12 @@ input:not(.action-button) {
 
 }
 
+select{
+	padding: 2px;
+	color: #242424;
+	border-radius: 2px;
+}
+
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -391,7 +397,6 @@ input:not(.action-button) {
 								<option value="product4">Product 4</option>
 							</select>
 						</div>
-							  
 						<input type="button" name="next" class="next action-button disable " value="Next" />
 				</fieldset>
 				<fieldset>
@@ -415,11 +420,11 @@ input:not(.action-button) {
 										<div class="input-group">
 											<input type="number" style="max-width: 130px" class="form-control"  aria-label="Input group example" aria-describedby="btnGroupAddon">
 											<div class="input-group-prepend">
-												<div class="input-group-text" id="btnGroupAddon" style="margin-top: 10px;height: 33px">Bulan</div>
+												<div class="input-group-text" id="btnGroupAddon" style="margin-top: 10px;height: 33px" >Bulan</div>
 											</div>
 										</div><br>
 										Uang Pertanggungan<br>
-										<input id="up" type="number" placeholder="Uang Pertanggungan">
+										<input id="up" type="number" placeholder="Uang Pertanggungan" >
 											
 								</div>
 							</div>
@@ -474,19 +479,187 @@ input:not(.action-button) {
 										<td>
 											<div style="display: inline-flex">
 												<label for="perokok-ya">Ya</label>
-												<input id="perokok-ya" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" class="action-dll">
+												<input name="pertanyaan-kesehatan" id="perokok-ya" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" class="action-dll">
 												<label for="perokok-tidak">Tidak</label>
-												<input id="perokok-tidak" style="width: 30px;margin-top: 5px" type="radio" class="action-dll">
+												<input  name="pertanyaan-kesehatan" id="perokok-tidak" style="width: 30px;margin-top: 5px" type="radio" class="action-dll">
 											</div>
 										</td>
 										<td>
 
 										</td>
 									</tr>
+									<tr>
+											<td>2</td>
+											<td>
+												Apakah anda melakukan aktivitas atau hobi yang berbahaya secara rutin ? contoh: melakukan aktivitas penerbangan (sebagai awak pesawat). balap mobil/motor, menyelam, terjun payung. mendaki guning. polo ski atai ski air.
+											</td>
+											<td>
+												<div style="display: inline-flex">
+													<label for="perokok-ya">Ya</label>
+													<input name="pertanyaan-aktivitas" id="perokok-ya" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" class="action-dll">
+													<label for="perokok-tidak">Tidak</label>
+													<input name="pertanyaan-aktivitas" id="perokok-tidak" style="width: 30px;margin-top: 5px" type="radio" class="action-dll">
+												</div>
+											</td>
+											<td>
+	
+											</td>
+										</tr>
 								</tbody>
 							</table>
 						</div>
+						
 					</div>
+					<div id="urine" class="frame">
+						<div class="frame-title">Kandungan yang terdapat pada urine</div>
+						<div>
+							<table class="table table-bordered">
+								<tr class="table-active">
+									<th>bilirubin</th>
+									<th>urobilin</th>
+									<th>keton</th>
+									<th>protein</th>
+									<th>nitrit</th>
+									<th>leukosit</th>
+									<th>glukosa</th>
+									<th>ph</th>
+								</tr>
+								<tr>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+									<td>
+										<select name="carlist" form="carform">
+											<option value="product1">Product 1</option>
+											<option value="product2">Product 2</option>
+											<option value="product3">Product 3</option>
+											<option value="product4">Product 4</option>
+										</select>
+									</td>
+								</tr>	
+							</table>
+						</div>
+					</div>
+
+					<div id="darah" class="frame">
+						<div class="frame-title">Kandungan yang terdapat pada darah</div>
+						<div>
+								<table class="table table-bordered">
+									<tr class="table-active">
+										<th>Hemoglobin</th>
+										<th>Hematokrit</th>
+										<th>Leukosit</th>
+										<th>Trombosit</th>
+										<th>LED</th>
+										<th>Eritrosit</th>
+									</tr>
+									<tr>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+										<td>
+											<select name="carlist" form="carform">
+												<option value="product1">Product 1</option>
+												<option value="product2">Product 2</option>
+												<option value="product3">Product 3</option>
+												<option value="product4">Product 4</option>
+											</select>
+										</td>
+									</tr>	
+								</table>
+							</div>
+					</div>
+
 					<input type="button" name="previous" class="previous action-button" value="Previous" />
 					<input type="button" name="next" class="next action-button" value="Next" />
 				</fieldset>
