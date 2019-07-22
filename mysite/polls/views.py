@@ -11,11 +11,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    
-
     x = 0
-
-
     return render(request,'index.html')
 
 def detail(request):
@@ -48,33 +44,35 @@ def predict_user(request,umur,sa,penyakit):
 
     return HttpResponse(predict)
 
-def predict_urine(request):
-    csv = open(os.path.dirname(os.path.realpath(__file__))+'//dataframe_urine.csv','r')
-    data= pd.read_csv(csv)
+csv = open(os.path.dirname(os.path.realpath(__file__))+'//dataframe_urine.csv','r')
+data= pd.read_csv(csv)
     
-    label = data.iloc[:,-1].values
-    data.head
-    data.drop(['eritrosit'],inplace=True,axis=1)
+label = data.iloc[:,-1].values
+data.head
+data.drop(['eritrosit'],inplace=True,axis=1)
 
-    categorical_encoder = []
-    for i in range(len(data.columns)-1):
-        le = preprocessing.LabelEncoder()
-        categorical_encoder.append(le)
-        categorical_encoder[i].fit(data.iloc[:,i])
-        data.iloc[:,i] = categorical_encoder[i].transform(data.iloc[:,i])
-    kelas = data.iloc[:,0:len(data.columns)-1].values
-    neigh = KNeighborsClassifier(n_neighbors=math.ceil(math.sqrt(len(data))))
+categorical_encoder = []
+for i in range(len(data.columns)-1):
+    le = preprocessing.LabelEncoder()
+    categorical_encoder.append(le)
+    categorical_encoder[i].fit(data.iloc[:,i])
+    data.iloc[:,i] = categorical_encoder[i].transform(data.iloc[:,i])
+kelas = data.iloc[:,0:len(data.columns)-1].values
+neigh = KNeighborsClassifier(n_neighbors=1)
 
-    neigh.fit(kelas,label)
+neigh.fit(kelas,label)
 
-    bilirubin = "negatif"
-    urobilin = "12"
-    keton = "3"
-    protein = "150"
-    nirit = "pos"
-    leukosit = "500"
-    gluskosa = "250"
-    ph = ">8"
+def predict_urine(request,a,b,c,d,e,f,g,h):
+    
+
+    bilirubin = a
+    urobilin = b
+    keton = c
+    protein = d
+    nirit = e
+    leukosit = f
+    gluskosa = g
+    ph = h
 
     bahan_uji = []
     bahan_uji.append([bilirubin])
@@ -99,7 +97,7 @@ def predict_urine(request):
     return HttpResponse(predict)
 
 
-def predict_blood(request):
+def predict_blood(request,a,b,c,d,e,f):
     csv = open(os.path.dirname(os.path.realpath(__file__))+'//dataframe_darah.csv','r')
     data = pd.read_csv(csv)
     label = data.iloc[:,-1].values
@@ -114,15 +112,15 @@ def predict_blood(request):
     
     kelas = data.iloc[:,0:len(data.columns)-1].values
     
-    neigh = KNeighborsClassifier(n_neighbors=2)
+    neigh = KNeighborsClassifier(n_neighbors=1)
     neigh.fit(kelas,label)
 
-    hemogoblin = ">18,0"
-    hemaktorit = ">50"
-    leukosit = "<4500"
-    trombosit = "normal"
-    led = "<15"
-    eritorsit = "normal"
+    hemogoblin = a
+    hemaktorit = b
+    leukosit = c
+    trombosit = d
+    led = e
+    eritorsit = f
 
     bahan_uji = []
     bahan_uji.append([hemogoblin])

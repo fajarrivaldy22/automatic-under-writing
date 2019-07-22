@@ -22,8 +22,11 @@
 
 	<script>
 		var umur = 0;
+		var up = 0;
 		$(document).ready(function(){
 			//$("#free-cover").hide();
+			var decision_darah = "decline";
+			var decision_urine = "135%"
 			var thisbmi = 0;
 			var umr = 0;
 			$("#table-kuisioner").hide();
@@ -98,10 +101,67 @@
 				xhttp.send();
 					
 			});
+			$("select[name=Hemoglobin],select[name=Hematokrit],select[name=Leukosit],select[name=Trombosit],select[name=LED],select[name=Eritrosit]").change(function(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						decision_darah = this.responseText;
+						$("#hasil-darah").html(this.responseText);
+					}
+					if (this.status == 404) {
+						console.log(this.responseURL);
+					}
+				};
+				xhttp.open("GET", "predicts_blood/"+$("select[name=Hemoglobin]").val()+"/"+$("select[name=Hematokrit]").val()+"/"+$("select[name=Leukosit]").val()+"/"+$("select[name=Trombosit]").val()+"/"+$("select[name=LED]").val()+"/"+$("select[name=Eritrosit]").val()+"/", true);
+				//+$("select[name=Hemoglobin]").val()+"/"+$("select[name=Hematokrit]").val()+"/"+$("select[name=Leukosit]").val()+"/"+$("select[name=Trombosit]").val()+"/"+$("select[name=LED]").val()+"/"+$("select[name=Eritrosit]").val()+"/"
+				xhttp.send();
+			});
+
+			$("select[name=bilirubin],select[name=urobilin],select[name=keton],select[name=protein],select[name=nitrit],select[name=nitrit],select[name=leukosit],select[name=glukosa],select[name=ph]").change(function(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						decision_urine = this.responseText;
+						$("#hasil-urine").html(this.responseText);
+					}
+					if (this.status == 404) {
+						console.log(this.responseURL);
+					}
+				};
+				xhttp.open("GET", "predicts_urine/"+$("select[name=bilirubin]").val()+"/"+$("select[name=urobilin]").val()+"/"+$("select[name=keton]").val()+"/"+$("select[name=protein]").val()+"/"+$("select[name=nitrit]").val()+"/"+$("select[name=leukosit]").val()+"/"+$("select[name=glukosa]").val()+"/"+$("select[name=ph]").val()+"/", true);
+				//+$("select[name=bilirubin]").val()+"/"+$("select[name=urobilin]").val()+"/"+$("select[name=keton]").val()+"/"+$("select[name=protein]").val()+"/"+$("select[name=nitrit]").val()+"/"+$("select[name=leukosit]").val()+"/"+$("select[name=glukosa]").val()+"/"+$("select[name=ph]").val()+"/"
+				//+$("select[name=Hemoglobin]").val()+"/"+$("select[name=Hematokrit]").val()+"/"+$("select[name=Leukosit]").val()+"/"+$("select[name=Trombosit]").val()+"/"+$("select[name=LED]").val()+"/"+$("select[name=Eritrosit]").val()+"/"
+				xhttp.send();
+			});
+
+			$("#up").change(function(){
+				$("#uang-pertanggungan").html($("#up").val());
+				up = $("#up").val();
+				
+			});
+
+			$("#masaAsuransi").change(function(){
+				$("#masa-asuransi").html($("#masaAsuransi").val()+" Bulan");
+				
+			});
+
+			$("input[name=tanggal_lahir],input[name=tanggal_kredit]").change(function(){
+				tanggal_lahir = new Date($("input[name=tanggal_lahir]").val());
+				tanggal_kredit = new Date($("input[name=tanggal_kredit]").val());
+
+				umur = tanggal_kredit.getFullYear() - tanggal_lahir.getFullYear();
+
+				$("#umur-display").html(umur+" Tahun");
+				$("#umur-peserta").html(umur+" Tahun");
+
+			});
 		});
 	</script>
 
 <style>
+	.premi td{
+		text-align: right;
+	}
 	body {
 	overflow-x: hidden;
 	}
@@ -411,16 +471,16 @@ select{
 									Tanggal Mulai Kredit<br>
 									<input type="date" style="width: 140px" name="tanggal_kredit" placeholder="Tanggal Lahir" id="t_kredit" required/><br>
 									<div class="btn-group" role="group" aria-label="Basic example">
-										<div class="btn btn-secondary">0</div>
+										<div id="umur-display" class="btn btn-secondary">0</div>
 										<div class="btn btn-secondary">Umur</div>
 									</div>
 								</div>
 								<div class="col">
 									Masa Asuransi <br>
 										<div class="input-group">
-											<input type="number" style="max-width: 130px" class="form-control"  aria-label="Input group example" aria-describedby="btnGroupAddon">
+											<input id="masaAsuransi" type="number" style="max-width: 130px" class="form-control"  aria-label="Input group example" aria-describedby="btnGroupAddon">
 											<div class="input-group-prepend">
-												<div class="input-group-text" id="btnGroupAddon" style="margin-top: 10px;height: 33px" >Bulan</div>
+												<div class="input-group-text"  style="margin-top: 10px;height: 33px" >Bulan</div>
 											</div>
 										</div><br>
 										Uang Pertanggungan<br>
@@ -526,72 +586,73 @@ select{
 								</tr>
 								<tr>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="bilirubin" form="carform">
+											<option value="1"> 1</option>
+											<option value="2"> 2</option>
+											<option value="3"> 3</option>
+											<option value="negatif">negatif</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="urobilin" form="carform">
+											<option value="2">2</option>
+											<option value="4">4</option>
+											<option value="8">8</option>
+											<option value="12">12</option>
+											<option value="normal">normal</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="keton" form="carform">
+											<option value="1"> 1</option>
+											<option value="2"> 2</option>
+											<option value="3"> 3</option>
+											<option value="negatif">negatif</option>
+											<option value="trace">trace</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="protein" form="carform">
+											<option value="50">50</option>
+											<option value="100">100</option>
+											<option value="150">150</option>
+											<option value="negatif">negatif</option>
+											<option value="trace">trace</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="nitrit" form="carform">
+											<option value="negatif">negatif</option>
+											<option value="pos">pos</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="leukosit" form="carform">
+											<option value="25">25</option>
+											<option value="75">75</option>
+											<option value="500">500</option>
+											<option value="negatif">negatif</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="glukosa" form="carform">
+											<option value="50">50</option>
+											<option value="100">100</option>
+											<option value="250">250</option>
+											<option value="normal">normal</option>
 										</select>
 									</td>
 									<td>
-										<select name="carlist" form="carform">
-											<option value="product1">Product 1</option>
-											<option value="product2">Product 2</option>
-											<option value="product3">Product 3</option>
-											<option value="product4">Product 4</option>
+										<select name="ph" form="carform">
+											<option value="43682">43682</option>
+											<option value="<5"><5</option>
+											<option value=">8">>8</option>
 										</select>
 									</td>
 								</tr>	
 							</table>
 						</div>
+						<div id="hasil-urine"></div>
 					</div>
 
 					<div id="darah" class="frame">
@@ -608,55 +669,52 @@ select{
 									</tr>
 									<tr>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="Hemoglobin" form="carform">
+												<option value="<13,5"> <13,5</option>
+												<option value=">18,0">>18,0</option>
+												<option value="normal">normal</option>
 											</select>
 										</td>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="Hematokrit" form="carform">
+												<option value="<38,8"><38,8</option>
+												<option value=">50">>50</option>
+												<option value="normal">normal</option>
 											</select>
 										</td>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="Leukosit" form="carform">
+												<option value="<4500"><4500 </option>
+												<option value=">10000">>10000</option>
+												<option value="normal">normal</option>
 											</select>
 										</td>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="Trombosit" form="carform">
+												<option value="<150000"><150000</option>
+												<option value="normal">normal</option>
+												<option value=">400000">>400000</option>
 											</select>
 										</td>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="LED" form="carform">
+												<option value="<15"><15</option>
+												<option value=">15">>15</option>
+												<option value="normal">normal</option>
 											</select>
 										</td>
 										<td>
-											<select name="carlist" form="carform">
-												<option value="product1">Product 1</option>
-												<option value="product2">Product 2</option>
-												<option value="product3">Product 3</option>
-												<option value="product4">Product 4</option>
+											<select name="Eritrosit" form="carform">
+												<option value="<4500000"><4500000</option>
+												<option value="normal">normal</option>
+												<option value=">6200000">>6200000</option>
 											</select>
 										</td>
 									</tr>	
 								</table>
+								<div id="hasil-darah">
+
+								</div>
 							</div>
 					</div>
 
@@ -665,30 +723,43 @@ select{
 				</fieldset>
 				<fieldset>
 					<h2 class="fs-title">perhitungan premi</h2>
-						<div class="row">
-							<div class="col">
-								<input type="text" name="nama" placeholder="Nama" required/>
-								<input type="date" name="tanggal_lahir" placeholder="Tanggal Lahir" id="ttl" required/>
-								<input type="text" name="alamat" placeholder="Alamat" required/>
-								<input type="text" name="agama" placeholder="Agama" required/>
-								<input type="text" name="suku" placeholder="Suku" required/>
-								
-								<div style="margin-top: 10px">
-									<div style="display: inline-flex">
-										<label>Laki-Laki</label>
-										<input id="L" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Laki-laki" value="L">
-										<label>Perempuan</label>
-										<input id="P" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Perempuan" value="P">
-									</div>
-								</div>
-	
-							</div>
-							<div class="col">
+					<div class="frame">
+							<div class="frame-title">Perhitungan Premi</div>
+							<table class="table premi table-borderless">
+									<tr>
+										<td>Umur Peserta :</td>
+										<th><div id="umur-peserta">	</div></th>
+									</tr>
+									<tr>
+										<td>Metode Jangka Waktu :</td>
+										<th>Bulan</th>
+									</tr>
+									<tr>
+										<td>Uang Pertanggungan :</td>
+										<th><div id="uang-pertanggungan" style="margin: 0"></div></th>
+									</tr>
+									<tr>
+										<td>Premi Dasar :</td>
+										<th>Premi Dasar </th>
+									</tr>
+									<tr>
+										<td>Masa Asuransi :</td>
+										<th><div id="masa-asuransi"></div></th>
+									</tr>
+									<tr>
+										<td>Manfaat yang didapat :</td>
+										<th>Santunan kematian</th>
+									</tr>
+							</table>
+						
 
-							</div>
-						</div>
-						<input type="button" name="previous" class="previous action-button" value="Previous" />
-						<input type="button" name="next" class="next action-button" value="Next" />
+
+					</div>
+						
+						
+					
+					<input type="button" name="previous" class="previous action-button" value="Previous" />
+					<input type="button" name="next" class="next action-button" value="Next" />
 						<!--
 							------ akhir -----
 							<input type="button" name="next" class="next action-button" value="Next" />-->
@@ -712,6 +783,7 @@ select{
 			</div>
 		</div>
 		
+				
 		<!--
 		<input id="umur" type='number' placeholder="umur"></input>
 		<input id="SA" type='number' placeholder="SA"></input>
@@ -736,6 +808,34 @@ select{
 						</div>
 						<input type="button" name="previous" class="previous action-button" value="Previous" />
 						<input type="button" name="next" class="next action-button disable " value="Next" />
+						------------------DATA DIRI -------------------------
+
+						<div class="row">
+							<div class="col">
+								<input type="text" name="nama" placeholder="Nama" required/>
+								<input type="date" name="tanggal_lahir" placeholder="Tanggal Lahir" id="ttl" required/>
+								<input type="text" name="alamat" placeholder="Alamat" required/>
+								<input type="text" name="agama" placeholder="Agama" required/>
+								<input type="text" name="suku" placeholder="Suku" required/>
+								
+								<div style="margin-top: 10px">
+									<div style="display: inline-flex">
+										<label>Laki-Laki</label>
+										<input id="L" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Laki-laki" value="L">
+										<label>Perempuan</label>
+										<input id="P" class="gender" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" name="gender" placeholder="Perempuan" value="P">
+									</div>
+								</div>
+	
+							</div>
+							<div class="col">
+
+							</div>
+						</div>
+
+
+
+
 
 						----------------PENGAJUAN UP ------------------
 
