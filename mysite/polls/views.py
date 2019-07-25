@@ -140,4 +140,9 @@ def predict_blood(request,a,b,c,d,e,f):
     predict = neigh.predict(data_result)
 
     return HttpResponse(predict)
+
+def predicts_mass(request):
+    if request.method == "POST":
+        file = request.POST.get('fname','')
+        return HttpResponse("heloo")
     

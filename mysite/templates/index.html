@@ -23,12 +23,15 @@
 	<script>
 		var umur = 0;
 		var up = 0;
+		var thisbmi = 0;
+		var decision_darah = "decline";
+		var decision_urine = "135%"
 		$(document).ready(function(){
 			//$("#free-cover").hide();
 			var decision_darah = "decline";
 			var decision_urine = "135%"
-			var thisbmi = 0;
-			var umr = 0;
+			
+			var umr = umur;
 			$("#table-kuisioner").hide();
 			$("#tinggi_badan,#berat_badan").change(function(){
 				gender = $("input[name='gender']:checked").val();
@@ -59,6 +62,7 @@
 						return 1;
 					}
 				}
+				$("#bmi-hasil").html(bmi)
 				$("#bmi-result").html("BMI : "+bmi+" Kg/m2");
 			});
 
@@ -107,6 +111,7 @@
 					if (this.readyState == 4 && this.status == 200) {
 						decision_darah = this.responseText;
 						$("#hasil-darah").html(this.responseText);
+						
 					}
 					if (this.status == 404) {
 						console.log(this.responseURL);
@@ -123,6 +128,7 @@
 					if (this.readyState == 4 && this.status == 200) {
 						decision_urine = this.responseText;
 						$("#hasil-urine").html(this.responseText);
+						$("#extra-premi").html(decision_urine);
 					}
 					if (this.status == 404) {
 						console.log(this.responseURL);
@@ -151,10 +157,194 @@
 
 				umur = tanggal_kredit.getFullYear() - tanggal_lahir.getFullYear();
 
-				$("#umur-display").html(umur+" Tahun");
+				$("#umur-display").html(umur);
 				$("#umur-peserta").html(umur+" Tahun");
 
 			});
+
+			$("#free-cover").hide();
+			$("#bmi").hide();
+			$("#kuisioner-kesehatan").hide();
+			$("#urine").hide();
+			$("#darah").hide();
+
+			$("#next-step2").click(function(){
+				if((umur>=0&&umur<=55)&&(up>200000000&&up<=600000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show(); //NM
+					console.log("NM");
+					$("#medical-type").html("Non-Medice");
+				}else if((umur>=0&&umur<=55)&&(up>=0&&up<=200000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#free-cover").show(); //FC
+					console.log("FC");
+					$("#medical-type").html("Free Cover");
+				}else if((umur>55&&umur<=64)&&(up>=0&&up<=200000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show(); //A
+					console.log("A");
+					$("#medical-type").html("A");
+					$("#medical-type").html("A");
+				}else if((umur>55&&umur<=64)&&(up>200000000&&up<=400000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show();
+					$("#kuisioner-kesehatan").show(); //B
+					console.log("B");
+					$("#medical-type").html("B");
+				}else if((umur>55&&umur<=64)&&(up>400000000&&up<=600000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show();
+					$("#kuisioner-kesehatan").show();
+					$("#urine").show(); //C
+					console.log("C");
+					$("#medical-type").html("C");
+				}else if((umur>=0&&umur<=64)&&(up>600000000&&up<=750000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show();
+					$("#kuisioner-kesehatan").show();
+					$("#urine").show();
+					$("#darah").show(); //D
+					console.log("D");
+					$("#medical-type").html("D");
+				}else if((umur>=0&&umur<=64)&&(up>750000000&&up<=1000000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show();
+					$("#kuisioner-kesehatan").show();
+					$("#urine").show();
+					$("#darah").show(); //E
+					console.log("E");
+					$("#medical-type").html("E");
+				}else if((umur>=0&&umur<=64)&&(up>1000000000)){
+					$("#free-cover").hide();
+					$("#bmi").hide();
+					$("#kuisioner-kesehatan").hide();
+					$("#urine").hide();
+					$("#darah").hide();
+					$("#bmi").show();
+					$("#kuisioner-kesehatan").show();
+					$("#urine").show();
+					$("#darah").show(); //F
+					console.log("F");
+					$("#medical-type").html("F");
+				}
+			});
+			$("#do-upload").click(function(){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						decision_urine = this.responseText;
+						$("#upload-result").html(this.responseText);
+					}
+					if (this.status == 404) {
+						console.log(this.responseURL);
+					}
+				};
+				xhttp.open("POST", "predicts_mass/", true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.send("fname=Henry&lname=Ford");
+			});
+			$("input[name=Hemoglobin],input[name=Hematokrit],input[name=Leukosit],input[name=Trombosit],input[name=LED],input[name=Eritrosit]").change(function(){
+				Hemoglobin = function(){
+					if ($("input[name=Hemoglobin]").val()< 13.5){
+						return "<13,5";
+					}else if ($("input[name=Hemoglobin]").val()> 18){
+						return ">18,0";
+					}else{
+						return "normal";
+					}
+				};
+				Hematokrit = function(){
+					if ($("input[name=Hematokrit]").val()< 38.8){
+						return "<38,8";
+					}else if ($("input[name=Hematokrit]").val()> 50){
+						return ">50";
+					}else{
+						return "normal";
+					}
+				};
+				Leukosit = function(){
+					if ($("input[name=Leukosit]").val()< 4500){
+						return "<4500";
+					}else if ($("input[name=Leukosit]").val()> 10000){
+						return ">10000";
+					}else{
+						return "normal";
+					}
+				};
+				Trombosit = function(){
+					if ($("input[name=Trombosit]").val()< 150000){
+						return "<150000";
+					}else if ($("input[name=Trombosit]").val()> 400000){
+						return ">400000";
+					}else{
+						return "normal";
+					}
+				};
+				LED = function(){
+					if ($("input[name=LED]").val()< 15){
+						return "<15";
+					}else if ($("input[name=LED]").val()> 15){
+						return ">15";
+					}else{
+						return "normal";
+					}
+				};
+				Eritrosit = function(){
+					if ($("input[name=Eritrosit]").val()< 4500000){
+						return "<4500000";
+					}else if ($("input[name=Eritrosit]").val()> 6200000){
+						return ">6200000";
+					}else{
+						return "normal";
+					}
+				};
+
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						decision_darah = this.responseText;
+						$("#hasil-darah").html(this.responseText);
+						$("#prob-accepted").html(decision_darah);
+					}
+					if (this.status == 404) {
+						console.log(this.responseURL);
+					}
+				};
+				xhttp.open("GET", "predicts_blood/"+Hemoglobin()+"/"+Hematokrit()+"/"+Leukosit()+"/"+Trombosit()+"/"+LED()+"/"+Eritrosit()+"/", true);
+				//+$("select[name=Hemoglobin]").val()+"/"+$("select[name=Hematokrit]").val()+"/"+$("select[name=Leukosit]").val()+"/"+$("select[name=Trombosit]").val()+"/"+$("select[name=LED]").val()+"/"+$("select[name=Eritrosit]").val()+"/"
+				xhttp.send();
+				
+				
+			});
+
 		});
 	</script>
 
@@ -491,7 +681,7 @@ select{
 
 						</div>
 						<input type="button" name="previous" class="previous action-button" value="Previous" />
-						<input type="button" name="next" class="next action-button" value="Next" />
+						<input id="next-step2" type="button" name="next" class="next action-button" value="Next" />
 				</fieldset>
 				<fieldset>
 					<h2 class="fs-title">Pertanyaan Medis</h2>
@@ -669,46 +859,58 @@ select{
 									</tr>
 									<tr>
 										<td>
+											<input name="Hemoglobin" type="text" style="width: 65px" value=0>
+											<!--
 											<select name="Hemoglobin" form="carform">
 												<option value="<13,5"> <13,5</option>
 												<option value=">18,0">>18,0</option>
 												<option value="normal">normal</option>
-											</select>
+											</select>-->
 										</td>
 										<td>
-											<select name="Hematokrit" form="carform">
+											
+											<input name="Hematokrit" type="text" style="width: 65px" value=0>
+											<!--<select name="Hematokrit" form="carform">
 												<option value="<38,8"><38,8</option>
 												<option value=">50">>50</option>
 												<option value="normal">normal</option>
-											</select>
+											</select>-->
 										</td>
 										<td>
+											<input name="Leukosit" type="text" style="width: 65px" value=0>
+											<!--
 											<select name="Leukosit" form="carform">
 												<option value="<4500"><4500 </option>
 												<option value=">10000">>10000</option>
 												<option value="normal">normal</option>
-											</select>
+											</select>-->
 										</td>
 										<td>
+												<input name="Trombosit" type="text" style="width: 65px" value=0>
+												<!--
 											<select name="Trombosit" form="carform">
 												<option value="<150000"><150000</option>
 												<option value="normal">normal</option>
 												<option value=">400000">>400000</option>
-											</select>
+											</select>-->
 										</td>
 										<td>
+											<input name="LED" type="text" style="width: 65px" value=0>
+											<!--
 											<select name="LED" form="carform">
 												<option value="<15"><15</option>
 												<option value=">15">>15</option>
 												<option value="normal">normal</option>
-											</select>
+											</select>-->
 										</td>
 										<td>
-											<select name="Eritrosit" form="carform">
+											
+											<input name="Eritrosit" type="text" style="width: 65px" value=0>
+											<!--<select name="Eritrosit" form="carform">
 												<option value="<4500000"><4500000</option>
 												<option value="normal">normal</option>
 												<option value=">6200000">>6200000</option>
-											</select>
+											</select>-->
 										</td>
 									</tr>	
 								</table>
@@ -717,6 +919,8 @@ select{
 								</div>
 							</div>
 					</div>
+
+					
 
 					<input type="button" name="previous" class="previous action-button" value="Previous" />
 					<input type="button" name="next" class="next action-button" value="Next" />
@@ -751,9 +955,48 @@ select{
 										<th>Santunan kematian</th>
 									</tr>
 							</table>
+					</div>
+					<div class="frame">
+						<div class="frame-title">Kemungkinan Penerimaan</div>
+						<table class="table premi table-borderless ">
+							<tr>
+								<td>
+									Kemungkinan Peserta Diterima
+								</td>
+								<th>
+									<div id="prob-accepted"></div>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									Extra Premi
+								</td>
+								<th>
+									<div id="extra-premi"></div>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									Medical Type
+								</td>
+								<th>
+									<div id="medical-type"></div>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<td>
+									BMI
+								</td>
+								<th>
+									<div id="bmi-hasil"></div>
+									</div>
+								</th>
+							</tr>
+							
+						</table>
+
 						
-
-
 					</div>
 						
 						
