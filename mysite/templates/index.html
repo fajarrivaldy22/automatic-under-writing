@@ -24,13 +24,13 @@
 		var umur = 0;
 		var up = 0;
 		var thisbmi = 0;
-		var decision_darah = "decline";
-		var decision_urine = "135%"
+		var decision_darah = "standard";
+		var decision_urine = "standard"
 		$(document).ready(function(){
 			//$("#free-cover").hide();
 			var decision_darah = "decline";
 			var decision_urine = "135%"
-			
+			$("#bmi-hasil").html(thisbmi)
 			var umr = umur;
 			$("#table-kuisioner").hide();
 			$("#tinggi_badan,#berat_badan").change(function(){
@@ -62,6 +62,7 @@
 						return 1;
 					}
 				}
+				thisbmi = bmi
 				$("#bmi-hasil").html(bmi)
 				$("#bmi-result").html("BMI : "+bmi+" Kg/m2");
 			});
@@ -127,7 +128,7 @@
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						decision_urine = this.responseText;
-						$("#hasil-urine").html(this.responseText);
+						//$("#hasil-urine").html(this.responseText);
 						$("#extra-premi").html(decision_urine);
 					}
 					if (this.status == 404) {
@@ -331,7 +332,7 @@
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						decision_darah = this.responseText;
-						$("#hasil-darah").html(this.responseText);
+						//$("#hasil-darah").html(this.responseText);
 						$("#prob-accepted").html(decision_darah);
 					}
 					if (this.status == 404) {
@@ -344,7 +345,8 @@
 				
 				
 			});
-
+			$("#prob-accepted").html(decision_darah);
+			$("#extra-premi").html(decision_urine);
 		});
 	</script>
 
@@ -850,12 +852,12 @@ select{
 						<div>
 								<table class="table table-bordered">
 									<tr class="table-active">
-										<th>Hemoglobin</th>
-										<th>Hematokrit</th>
-										<th>Leukosit</th>
+										<th>Hemoglobin(gram)</th>
+										<th>Hematokrit(%)</th>
+										<th>Leukosit(sel/mm3)</th>
 										<th>Trombosit</th>
-										<th>LED</th>
-										<th>Eritrosit</th>
+										<th>LED(jam)</th>
+										<th>Eritrosit(juta)</th>
 									</tr>
 									<tr>
 										<td>
