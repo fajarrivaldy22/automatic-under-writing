@@ -28,8 +28,7 @@
 		var decision_urine = "standard"
 		$(document).ready(function(){
 			//$("#free-cover").hide();
-			var decision_darah = "decline";
-			var decision_urine = "135%"
+			
 			$("#bmi-hasil").html(thisbmi)
 			var umr = umur;
 			$("#table-kuisioner").hide();
@@ -122,6 +121,7 @@
 				//+$("select[name=Hemoglobin]").val()+"/"+$("select[name=Hematokrit]").val()+"/"+$("select[name=Leukosit]").val()+"/"+$("select[name=Trombosit]").val()+"/"+$("select[name=LED]").val()+"/"+$("select[name=Eritrosit]").val()+"/"
 				xhttp.send();
 			});
+			$("input[name=pertanyaan-kesehatan],input[name=pertanyaan-kesehatan1]").val();
 
 			$("select[name=bilirubin],select[name=urobilin],select[name=keton],select[name=protein],select[name=nitrit],select[name=nitrit],select[name=leukosit],select[name=glukosa],select[name=ph]").change(function(){
 				var xhttp = new XMLHttpRequest();
@@ -483,7 +483,7 @@ input:not(.action-button) {
 	color: #858585;
 	text-transform: uppercase;
 	font-size: 9px;
-	width: 14.28%;
+	width: 25%;
 	margin-bottom: 30px;
 	float: left;
 	position: relative;
@@ -634,9 +634,6 @@ select{
 					<li>Perhitungan</li>
 					<li>Pertanyaan medis</li>
 					<li>Perhitungan Premi</li>
-					<li>informasi peserta</li>
-					<li>persetujuan</li>
-					<li>Cover note</li>
 				</ul>
 				<!-- fieldsets -->
 				<fieldset>
@@ -733,7 +730,7 @@ select{
 												<label for="perokok-ya">Ya</label>
 												<input name="pertanyaan-kesehatan" id="perokok-ya" style="width: 30px;margin-top: 5px;margin-right: 20px" type="radio" class="action-dll">
 												<label for="perokok-tidak">Tidak</label>
-												<input  name="pertanyaan-kesehatan" id="perokok-tidak" style="width: 30px;margin-top: 5px" type="radio" class="action-dll">
+												<input  name="pertanyaan-kesehatan1" id="perokok-tidak" style="width: 30px;margin-top: 5px" type="radio" class="action-dll">
 											</div>
 										</td>
 										<td>
@@ -1004,7 +1001,6 @@ select{
 						
 					
 					<input type="button" name="previous" class="previous action-button" value="Previous" />
-					<input type="button" name="next" class="next action-button" value="Next" />
 						<!--
 							------ akhir -----
 							<input type="button" name="next" class="next action-button" value="Next" />-->
